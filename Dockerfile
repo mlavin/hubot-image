@@ -20,7 +20,7 @@ RUN npm install $(node -e "console.log('${AVAILABLE_ADAPTERS}'.split(',').join('
 
 USER root
 RUN apk del make gcc g++ python && \
-    rm -rf /tmp/* /var/cache/apk/* /root/.npm /root/.node-gyp
+    rm -rf /tmp/* /var/cache/apk/* ${HOME}/.npm ${HOME}/.node-gyp
 
 ENV BOT_NAME hubot
 ENV ADAPTER shell
