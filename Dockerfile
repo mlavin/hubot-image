@@ -6,18 +6,15 @@ RUN adduser -h ${HOME} -S ${user} && chown -R ${user} ${HOME}
 
 USER root
 WORKDIR ${HOME}
-ARG AVAILABLE_PLUGINS=hubot-diagnostics,hubot-help,hubot-google-images,hubot-google-translate,hubot-pugme,hubot-maps,hubot-rules,hubot-shipit
-ARG AVAILABLE_ADAPTERS=hubot-hipchat,hubot-slack,hubot-irc
+COPY package.json ${HOME}
 RUN apk add --update make gcc g++ python && \
-    npm install coffee-script hubot \
-    $(node -e "console.log('${AVAILABLE_PLUGINS}'.split(',').join(' '))") \
-    $(node -e "console.log('${AVAILABLE_ADAPTERS}'.split(',').join(' '))") && \
+    npm install && \
     apk del make gcc g++ python && \
     rm -rf /tmp/* /var/cache/apk/* ${HOME}/.npm ${HOME}/.node-gyp
 
 ENV BOT_NAME hubot
 ENV ADAPTER shell
-ENV ENABLED_PLUGINS=${AVAILABLE_PLUGINS}
+ENV ENABLED_PLUGINS=hubot-diagnostics,hubot-help,hubot-google-images,hubot-google-translate,hubot-pugme,hubot-maps,hubot-rules,hubot-shipit
 
 USER ${user}
 CMD node -e "console.log(JSON.stringify('${ENABLED_PLUGINS}'.split(',')))" > external-scripts.json && \
