@@ -8,7 +8,7 @@
         "hubot-google-images": "^0.2.4",
         "hubot-google-translate": "^0.2.0",
         "hubot-help": "^0.1.2",
-        "hubot-hipchat": "^2.12.0",
+        "hubot-hipchat": "^2.12.0-6",
         "hubot-irc": "^0.2.8",
         "hubot-maps": "^0.0.2",
         "hubot-pugme": "^0.1.0",
