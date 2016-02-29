@@ -7,4 +7,11 @@ build:
 run: build
 	docker run -i -t ${NAME}
 
-.PHONY: build run
+outdated: build
+	docker run -i -t ${NAME} npm outdated
+
+push: tag=latest
+push: build
+	docker push ${NAME}:$(tag)
+
+.PHONY: build run outdated push
