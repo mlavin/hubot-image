@@ -15,9 +15,10 @@ RUN apk add --update make gcc g++ python && \
 ENV ENABLED_PLUGINS=hubot-diagnostics,hubot-help,hubot-google-images,hubot-google-translate,hubot-pugme,hubot-maps,hubot-rules,hubot-shipit
 ENV PATH ${HOME}/node_modules/.bin:$PATH
 
-RUN mkdir env
-ENV ENV_DIR env
+RUN touch env
+ENV ENV_FILE env
 
 USER ${user}
-CMD node -e "console.log(JSON.stringify('${ENABLED_PLUGINS}'.split(',')))" > external-scripts.json && \
-    envdir ${ENV_DIR} hubot
+CMD . ${ENV_FILE} && \
+    node -e "console.log(JSON.stringify('${ENABLED_PLUGINS}'.split(',')))" > external-scripts.json && \
+    hubot
